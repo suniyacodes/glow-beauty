@@ -3,9 +3,452 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist - Glow Beauty</title>
+    <title>My Wishlist - Glow Beauty</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ====== Wishlist Page Extras ====== */
+
+        .wishlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #fff0f5;
+        }
+
+        .wishlist-header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .wishlist-header h1 i {
+            color: #ff4f8b;
+            margin-right: 10px;
+        }
+
+        .wishlist-count {
+            background: #ff4f8b;
+            color: #fff;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ====== Empty State ====== */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-state i {
+            font-size: 80px;
+            color: #ffb3d4;
+            margin-bottom: 24px;
+            display: block;
+            animation: heartbeat 2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+
+        .empty-state h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #888;
+            margin-bottom: 28px;
+            font-size: 15px;
+        }
+
+        .empty-state a {
+            display: inline-block;
+            padding: 14px 36px;
+            background: linear-gradient(135deg, #ff4f8b, #ff8dc5);
+            color: #fff;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: .3s;
+            box-shadow: 0 8px 25px rgba(255,79,139,0.35);
+        }
+
+        .empty-state a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255,79,139,0.45);
+        }
+
+        /* ====== Wishlist Grid ====== */
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        @media(max-width: 1200px) { .wishlist-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media(max-width: 900px)  { .wishlist-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media(max-width: 600px)  { .wishlist-grid { grid-template-columns: 1fr; } }
+
+        /* ====== Wishlist Card ====== */
+        .w-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            position: relative;
+            transition: .3s;
+            border: 1px solid #fff0f5;
+        }
+
+        .w-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(255,79,139,0.15);
+        }
+
+        .w-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 12px;
+            transition: .3s;
+        }
+
+        .w-card:hover img { transform: scale(1.05); }
+
+        .w-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+
+        .w-card .w-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ff4f8b;
+            margin-bottom: 14px;
+        }
+
+        .w-card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ff4f8b, #ff8dc5);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-add-cart:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 18px rgba(255,79,139,0.35);
+        }
+
+        .btn-remove {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #ffe0ee;
+            border-radius: 10px;
+            background: #fff;
+            color: #ff4f8b;
+            font-size: 16px;
+            cursor: pointer;
+            transition: .3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-remove:hover {
+            background: #ff4f8b;
+            color: #fff;
+            border-color: #ff4f8b;
+        }
+
+        /* Remove badge top-right */
+        .w-remove-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: #fff0f5;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: .3s;
+            color: #ff4f8b;
+            font-size: 14px;
+            border: 1px solid #ffd6e8;
+        }
+
+        .w-remove-badge:hover {
+            background: #ff4f8b;
+            color: #fff;
+        }
+
+        /* ====== Toast ====== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            transform: translateY(80px);
+            opacity: 0;
+            transition: .4s cubic-bezier(.175,.885,.32,1.275);
+            z-index: 9999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i { color: #ff4f8b; font-size: 18px; }
+    </style>
 </head>
 <body>
-    
+
+<!-- ====== Sidebar ====== -->
+<div class="sidebar">
+    <div class="logo"><h2>Glow Beauty</h2></div>
+    <ul>
+        <li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="category.html"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
+        <li><a href="brand.html"><i class="fa-solid fa-tags"></i> Brands</a></li>
+        <li><a href="offers.html"><i class="fa-solid fa-gift"></i> Offers</a></li>
+        <li class="active"><a href="wishlist.html"><i class="fa-solid fa-heart"></i> Wishlist</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot"></i> Address</a></li>
+        <li><a href="#"><i class="fa-solid fa-circle-question"></i> Help</a></li>
+    </ul>
+</div>
+
+<!-- ====== Main ====== -->
+<div class="main">
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="location">
+            <i class="fa-solid fa-location-dot"></i>
+            Deliver to <b>Jamshedpur</b>
+        </div>
+        <div class="search">
+            <input type="text" id="searchInput" placeholder="Search wishlist...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="nav-icons">
+            <a href="#"><i class="fa-regular fa-bell"></i></a>
+            <a href="account.html" title="My Account"><i class="fa-regular fa-user"></i></a>
+            <a href="card.html" class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-count">0</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Wishlist Header -->
+    <div class="wishlist-header" style="margin-top:22px;">
+        <h1><i class="fa-solid fa-heart"></i> My Wishlist</h1>
+        <span class="wishlist-count" id="wishlistCount">0 items</span>
+    </div>
+
+    <!-- Wishlist Content -->
+    <div id="wishlistContent">
+        <div class="empty-state">
+            <i class="fa-regular fa-heart"></i>
+            <h2>Loading your wishlist...</h2>
+        </div>
+    </div>
+
+    <footer style="margin-top:40px;">
+        <p>© 2026 Glow Beauty Store | All Rights Reserved</p>
+    </footer>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMsg">Done!</span>
+</div>
+
+<script>
+    // ====== Toast ======
+    function showToast(msg, icon = 'fa-circle-check') {
+        const toast = document.getElementById('toast');
+        document.getElementById('toastMsg').textContent = msg;
+        toast.querySelector('i').className = `fa-solid ${icon}`;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    // ====== Load Wishlist ======
+    async function loadWishlist(filter = '') {
+        try {
+            const res = await fetch('/backend/wishlist/wishlist', { credentials: 'include' });
+            const data = await res.json();
+
+            if (!data.success) {
+                window.location.href = '/frontend/login.html';
+                return;
+            }
+
+            const items = data.wishlist.filter(item =>
+                !filter || item.product.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            document.getElementById('wishlistCount').textContent = `${data.wishlist.length} item${data.wishlist.length !== 1 ? 's' : ''}`;
+            renderWishlist(items);
+        } catch (err) {
+            console.error('Wishlist load error:', err);
+        }
+    }
+
+    // ====== Render Wishlist Cards ======
+    function renderWishlist(items) {
+        const container = document.getElementById('wishlistContent');
+
+        if (items.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="fa-regular fa-heart"></i>
+                    <h2>Your Wishlist is Empty</h2>
+                    <p>Explore our products and save your favourites here!</p>
+                    <a href="dashboard.html">Explore Products</a>
+                </div>`;
+            return;
+        }
+
+        const productImages = {
+            'Vitamin C Serum': 'public/pd06.png',
+            'Face Wash':       'public/pd02.png',
+            'Moisturizer':     'public/pd08.png',
+            'Matte Lipstick':  'public/pd03.png',
+        };
+
+        const grid = items.map(item => {
+            const img = productImages[item.product] || 'public/pd01.png';
+            return `
+            <div class="w-card" id="wcard-${item.id}">
+                <div class="w-remove-badge" onclick="removeFromWishlist(${item.id})" title="Remove from wishlist">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+                <img src="${img}" alt="${item.product}">
+                <h3>${item.product}</h3>
+                <div class="w-price">₹${item.price}</div>
+                <div class="w-card-actions">
+                    <button class="btn-add-cart" onclick="moveToCart('${item.product}', ${item.price}, ${item.id})">
+                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                    </button>
+                    <button class="btn-remove" onclick="removeFromWishlist(${item.id})" title="Remove">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>`;
+        }).join('');
+
+        container.innerHTML = `<div class="wishlist-grid">${grid}</div>`;
+    }
+
+    // ====== Remove from Wishlist ======
+    async function removeFromWishlist(id) {
+        try {
+            const res = await fetch(`/backend/wishlist/wishlist?id=${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+            const data = await res.json();
+            if (data.success) {
+                // Animate card removal
+                const card = document.getElementById(`wcard-${id}`);
+                if (card) {
+                    card.style.transition = '.3s';
+                    card.style.transform = 'scale(0.85)';
+                    card.style.opacity = '0';
+                    setTimeout(() => { loadWishlist(); }, 300);
+                }
+                showToast('Removed from wishlist', 'fa-heart-crack');
+            }
+        } catch (err) {
+            console.error('Remove error:', err);
+        }
+    }
+
+    // ====== Move to Cart ======
+    async function moveToCart(product, price, wishlistId) {
+        try {
+            // Add to cart
+            const cartRes = await fetch('/backend/cart/add_cart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ product_name: product, price: price }),
+                credentials: 'include'
+            });
+            const cartData = await cartRes.json();
+
+            if (cartData.success) {
+                // Update cart counter
+                const counter = document.getElementById('cart-count');
+                if (counter) counter.textContent = parseInt(counter.textContent || 0) + 1;
+
+                showToast(`${product} added to cart!`, 'fa-cart-shopping');
+            }
+        } catch (err) {
+            console.error('Add to cart error:', err);
+        }
+    }
+
+    // ====== Search ======
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        loadWishlist(this.value);
+    });
+
+    // ====== Session Check + Init ======
+    (async () => {
+        try {
+            const res = await fetch('/backend/account/account', { credentials: 'include' });
+            const data = await res.json();
+            if (!data.success) {
+                window.location.href = '/frontend/login.html';
+                return;
+            }
+        } catch (e) {
+            window.location.href = '/frontend/login.html';
+            return;
+        }
+        loadWishlist();
+    })();
+</script>
+
 </body>
 </html>
