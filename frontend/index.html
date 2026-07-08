@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Beauty — Discover Your Beauty</title>
+    <meta name="description" content="Glow Beauty Store — Premium Makeup, Skincare & Hair Care Products at Amazing Prices.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --pink: #ff4f8b;
+            --dark-pink: #e63d79;
+            --light-pink: #ffd6e8;
+            --pale: #fff5f8;
+            --text: #333;
+            --muted: #777;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body { background: #fff; overflow-x: hidden; }
+
+        /* ====== NAVBAR ====== */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 60px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(255,79,139,0.1);
+            transition: .3s;
+        }
+
+        .nav-logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--pink);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo span { color: #333; }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 15px;
+            transition: .3s;
+        }
+
+        .nav-links a:hover { color: var(--pink); }
+
+        .nav-btns {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-outline {
+            padding: 10px 24px;
+            border: 2px solid var(--pink);
+            border-radius: 30px;
+            color: var(--pink);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: .3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--pink);
+            color: #fff;
+        }
+
+        .btn-fill {
+            padding: 10px 24px;
+            background: var(--pink);
+            border-radius: 30px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: .3s;
+            border: 2px solid var(--pink);
+        }
+
+        .btn-fill:hover {
+            background: var(--dark-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,79,139,.35);
+        }
+
+        /* ====== HERO ====== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffd6e8 50%, #fff5f8 100%);
+            display: flex;
+            align-items: center;
+            padding: 100px 60px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255,79,139,0.15) 0%, transparent 70%);
+            top: -100px; right: -100px;
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(255,79,139,0.1) 0%, transparent 70%);
+            bottom: -80px; left: 200px;
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            flex: 1;
+            z-index: 2;
+            max-width: 580px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,79,139,0.1);
+            color: var(--pink);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,79,139,0.2);
+        }
+
+        .hero h1 {
+            font-size: 62px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #ff4f8b, #ff8dc5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 38px;
+            max-width: 480px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .cta-primary {
+            padding: 16px 38px;
+            background: linear-gradient(135deg, #ff4f8b, #ff8dc5);
+            color: #fff;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: .3s;
+            box-shadow: 0 10px 30px rgba(255,79,139,0.4);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255,79,139,0.5);
+        }
+
+        .cta-secondary {
+            padding: 16px 38px;
+            border: 2px solid var(--pink);
+            color: var(--pink);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: .3s;
+        }
+
+        .cta-secondary:hover {
+            background: var(--light-pink);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-num {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--pink);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #888;
+            font-weight: 500;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-img-wrap {
+            width: 420px;
+            height: 420px;
+            background: linear-gradient(135deg, rgba(255,79,139,0.15), rgba(255,141,197,0.1));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 30px 80px rgba(255,79,139,0.25);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-img-wrap img {
+            width: 340px;
+            height: 340px;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(255,79,139,0.3));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-18px); }
+        }
+
+        /* ====== FEATURES ====== */
+        .features {
+            padding: 90px 60px;
+            background: #fff;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+        }
+
+        .section-title h2 span { color: var(--pink); }
+
+        .section-title p {
+            font-size: 16px;
+            color: #777;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--pale);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: .3s;
+            border: 1px solid rgba(255,79,139,0.08);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(255,79,139,0.15);
+            background: #fff;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff4f8b, #ff8dc5);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(255,79,139,0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.7;
+        }
+
+        /* ====== CATEGORIES ====== */
+        .categories-section {
+            padding: 90px 60px;
+            background: linear-gradient(135deg, #fff0f5, #fff5f8);
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .cat-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: .3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,.06);
+        }
+
+        .cat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(255,79,139,0.15);
+        }
+
+        .cat-card img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            margin-bottom: 12px;
+            transition: .3s;
+        }
+
+        .cat-card:hover img { transform: rotate(8deg) scale(1.1); }
+
+        .cat-card p {
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        /* ====== CTA SECTION ====== */
+        .cta-section {
+            padding: 100px 60px;
+            background: linear-gradient(135deg, #ff4f8b, #ff8dc5, #ffb3d4);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '✦';
+            position: absolute;
+            font-size: 200px;
+            color: rgba(255,255,255,0.05);
+            top: -40px; left: -40px;
+        }
+
+        .cta-section h2 {
+            font-size: 46px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 40px;
+        }
+
+        .cta-white {
+            display: inline-block;
+            padding: 18px 50px;
+            background: #fff;
+            color: var(--pink);
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 17px;
+            text-decoration: none;
+            transition: .3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .cta-white:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+        }
+
+        /* ====== FOOTER ====== */
+        .footer {
+            background: #1a1a2e;
+            color: #aaa;
+            text-align: center;
+            padding: 30px;
+            font-size: 14px;
+        }
+
+        .footer span { color: var(--pink); }
+
+        /* ====== RESPONSIVE ====== */
+        @media(max-width: 992px) {
+            .hero { flex-direction: column; padding: 120px 30px 60px; text-align: center; }
+            .hero h1 { font-size: 44px; }
+            .hero-cta { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .hero-img-wrap { width: 280px; height: 280px; margin-top: 40px; }
+            .hero-img-wrap img { width: 220px; height: 220px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .cat-grid { grid-template-columns: repeat(3, 1fr); }
+            .nav { padding: 16px 25px; }
+            .nav-links { display: none; }
+        }
+
+        @media(max-width: 600px) {
+            .hero h1 { font-size: 34px; }
+            .features { padding: 60px 20px; }
+            .features-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+            .categories-section { padding: 60px 20px; }
+            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+            .cta-section { padding: 70px 20px; }
+            .cta-section h2 { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ====== NAVBAR ====== -->
+<nav class="nav">
+    <div class="nav-logo">Glow<span>Beauty</span></div>
+    <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-btns">
+        <a href="login.html" class="btn-outline">Login</a>
+        <a href="register.html" class="btn-fill">Get Started</a>
+    </div>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <i class="fa-solid fa-star"></i>
+            #1 Beauty Store in India
+        </div>
+        <h1>Discover Your <span>Natural Beauty</span></h1>
+        <p>Shop premium makeup, skincare, haircare & more. Flat 50% OFF on selected products. Your beauty journey starts here.</p>
+        <div class="hero-cta">
+            <a href="register.html" class="cta-primary">
+                <i class="fa-solid fa-bag-shopping"></i> Shop Now
+            </a>
+            <a href="login.html" class="cta-secondary">
+                <i class="fa-solid fa-right-to-bracket"></i> Login
+            </a>
+        </div>
+      
+    </div>
+    <div class="hero-image">
+        <div class="hero-img-wrap">
+            <img src="public/pd07.png" alt="Glow Beauty Products">
+        </div>
+    </div>
+</section>
+
+<!-- ====== FEATURES ====== -->
+<section class="features" id="features">
+    <div class="section-title">
+        <h2>Why Choose <span>Glow Beauty</span>?</h2>
+        <p>We deliver premium beauty products with the best experience</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <h3>Free Delivery</h3>
+            <p>Free shipping on orders above ₹499 across India</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>100% Authentic</h3>
+            <p>All products are genuine and sourced directly from brands</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-rotate-left"></i></div>
+            <h3>Easy Returns</h3>
+            <p>Hassle-free 7-day return & exchange policy</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
+            <h3>24/7 Support</h3>
+            <p>Our beauty experts are always here to help you</p>
+        </div>
+    </div>
+</section>
+
+<!-- ====== CATEGORIES ====== -->
+<section class="categories-section" id="categories">
+    <div class="section-title">
+        <h2>Shop By <span>Category</span></h2>
+        <p>Explore our wide range of beauty categories</p>
+    </div>
+    <div class="cat-grid">
+        <div class="cat-card" onclick="window.location.href='login.html'">
+            <img src="public/pd09.png" alt="Makeup">
+            <p>Makeup</p>
+        </div>
+        <div class="cat-card" onclick="window.location.href='login.html'">
+            <img src="public/pd03.png" alt="Skincare">
+            <p>Skincare</p>
+        </div>
+        <div class="cat-card" onclick="window.location.href='login.html'">
+            <img src="public/pd01.png" alt="Hair Care">
+            <p>Hair Care</p>
+        </div>
+        <div class="cat-card" onclick="window.location.href='login.html'">
+            <img src="public/pd02.png" alt="Perfume">
+            <p>Perfume</p>
+        </div>
+        <div class="cat-card" onclick="window.location.href='login.html'">
+            <img src="public/pd04.png" alt="Body Care">
+            <p>Body Care</p>
+        </div>
+        <div class="cat-card" onclick="window.location.href='login.html'">
+            <img src="public/pd08.png" alt="Lip Care">
+            <p>Lip Care</p>
+        </div>
+    </div>
+</section>
+
+<!-- ====== CTA ====== -->
+<section class="cta-section" id="about">
+    <h2>Ready to Glow? ✨</h2>
+    <p>Join 50,000+ customers who trust Glow Beauty for their daily beauty needs</p>
+    <a href="register.html" class="cta-white">Create Free Account</a>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+    <p>© 2026 <span>Glow Beauty Store</span> | All Rights Reserved | Made with <span>❤️</span> in India</p>
+</footer>
+
+<script>
+    // If already logged in, redirect to dashboard
+    (async () => {
+        try {
+            const res = await fetch('/backend/account/account', { credentials: 'include' });
+            const data = await res.json();
+            if (data.success) {
+                window.location.href = '/frontend/dashboard.html';
+            }
+        } catch (e) {
+            // Not logged in — stay on landing page
+        }
+    })();
+</script>
+
+</body>
+</html>

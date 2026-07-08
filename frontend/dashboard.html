@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - Glow Beauty Store</title>
+<meta name="description" content="Your Glow Beauty shopping dashboard">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+<!--  Sidebar  -->
+<div class="sidebar">
+    <div class="logo">
+        <h2>Glow Beauty</h2>
+    </div>
+    <ul>
+        <li class="active">
+            <a href="dashboard.html">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+        </li>
+        <li>
+            <a href="category.html">
+                <i class="fa-solid fa-layer-group"></i> Categories
+            </a>
+        </li>
+        <li>
+            <a href="brand.html">
+                <i class="fa-solid fa-tags"></i> Brands
+            </a>
+        </li>
+        <li>
+            <a href="offers.html">
+                <i class="fa-solid fa-gift"></i> Offers
+            </a>
+        </li>
+        <li>
+            <a href="wishlist.html">
+                <i class="fa-solid fa-heart"></i> Wishlist
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa-solid fa-location-dot"></i> Address
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa-solid fa-circle-question"></i> Help
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- ================= Main ================= -->
+<div class="main">
+
+<!-- ================= Navbar ================= -->
+<div class="navbar">
+    <div class="location">
+        <i class="fa-solid fa-location-dot"></i>
+        Deliver to <b>Jamshedpur</b>
+    </div>
+    <div class="search">
+        <input type="text" placeholder="Search Beauty Products...">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    <div class="nav-icons">
+        <a href="#"><i class="fa-regular fa-bell"></i></a>
+        <a href="account.html" id="user-icon-link" title="My Account">
+            <i class="fa-regular fa-user"></i>
+        </a>
+        <a href="card.html" class="cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count">0</span>
+        </a>
+    </div>
+</div>
+
+<!-- ================= Welcome Bar ================= -->
+<div id="welcome-bar" style="
+    background: linear-gradient(135deg,#fff0f5,#ffd6e8);
+    border-radius:12px;
+    padding:14px 22px;
+    margin-top:18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 3px 12px rgba(255,79,139,.08);
+">
+    <span style="font-size:15px;color:#444;">
+        👋 Welcome back, <strong id="welcome-name" style="color:#ff4f8b;">...</strong>!
+    </span>
+    <button onclick="logout()" style="
+        background:#ff4f8b;color:#fff;border:none;
+        padding:8px 20px;border-radius:20px;
+        cursor:pointer;font-size:13px;font-weight:600;
+        transition:.3s;
+    ">Logout</button>
+</div>
+
+<!-- ================= Hero Banner ================= -->
+<section class="banner">
+    <div class="banner-text">
+        <h1>Glow Naturally</h1>
+        <h3>Flat 50% OFF</h3>
+        <p>Discover Premium Makeup, Skincare &amp; Hair Care Products at Amazing Prices.</p>
+        <button>Shop Now</button>
+    </div>
+    <div class="banner-image">
+        <img src="public/pd07.png" alt="Banner">
+    </div>
+</section>
+
+<!-- ================= Categories ================= -->
+<section class="categories">
+    <h2>Shop By Category</h2>
+    <div class="category-box">
+        <div class="category-card"><img src="public/pd09.png"><p>Makeup</p></div>
+        <div class="category-card"><img src="public/pd03.png"><p>Skincare</p></div>
+        <div class="category-card"><img src="public/pd01.png"><p>Hair Care</p></div>
+        <div class="category-card"><img src="public/pd02.png"><p>Perfume</p></div>
+        <div class="category-card"><img src="public/pd04.png"><p>Body Care</p></div>
+        <div class="category-card"><img src="public/pd08.png"><p>Lip Care</p></div>
+    </div>
+</section>
+
+<!-- ================= Products ================= -->
+<section class="products">
+    <div class="title">
+        <h2>Popular Products</h2>
+        <a href="category.html">View All</a>
+    </div>
+    <div class="product-grid">
+
+        <div class="product-card">
+            <span class="discount">20% OFF</span>
+            <i class="fa-regular fa-heart wishlist"></i>
+            <img src="public/pd06.png" alt="Vitamin C Serum">
+            <h3>Vitamin C Serum</h3>
+            <p class="brand">Glow Beauty</p>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <div class="price">
+                <span class="new-price">₹499</span>
+                <span class="old-price">₹699</span>
+            </div>
+            <button class="cart-btn" data-product="Vitamin C Serum" data-price="499">Add To Cart</button>
+        </div>
+
+        <div class="product-card">
+            <span class="discount">30% OFF</span>
+            <i class="fa-regular fa-heart wishlist"></i>
+            <img src="public/pd02.png" alt="Face Wash">
+            <h3>Face Wash</h3>
+            <p class="brand">Glow Beauty</p>
+            <div class="rating">⭐⭐⭐⭐☆</div>
+            <div class="price">
+                <span class="new-price">₹299</span>
+                <span class="old-price">₹399</span>
+            </div>
+            <button class="cart-btn" data-product="Face Wash" data-price="299">Add To Cart</button>
+        </div>
+
+        <div class="product-card">
+            <span class="discount">15% OFF</span>
+            <i class="fa-regular fa-heart wishlist"></i>
+            <img src="public/pd08.png" alt="Moisturizer">
+            <h3>Moisturizer</h3>
+            <p class="brand">Glow Beauty</p>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <div class="price">
+                <span class="new-price">₹599</span>
+                <span class="old-price">₹799</span>
+            </div>
+            <button class="cart-btn" data-product="Moisturizer" data-price="599">Add To Cart</button>
+        </div>
+
+        <div class="product-card">
+            <span class="discount">25% OFF</span>
+            <i class="fa-regular fa-heart wishlist"></i>
+            <img src="public/pd03.png" alt="Matte Lipstick">
+            <h3>Matte Lipstick</h3>
+            <p class="brand">Glow Beauty</p>
+            <div class="rating">⭐⭐⭐⭐☆</div>
+            <div class="price">
+                <span class="new-price">₹399</span>
+                <span class="old-price">₹549</span>
+            </div>
+            <button class="cart-btn" data-product="Matte Lipstick" data-price="399">Add To Cart</button>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>© 2026 Glow Beauty Store | All Rights Reserved</p>
+</footer>
+
+</div><!-- .main -->
+
+<script src="script.js"></script>
+<script>
+    // ====== Session Guard — redirect to login if not logged in ======
+    (async () => {
+        try {
+            const res = await fetch('/backend/account/account', { credentials: 'include' });
+            const data = await res.json();
+            if (data.success) {
+                document.getElementById('welcome-name').textContent = data.user;
+            } else {
+                window.location.href = '/frontend/login.html';
+            }
+        } catch (e) {
+            window.location.href = '/frontend/login.html';
+        }
+    })();
+
+    // ====== Logout ======
+    async function logout() {
+        try {
+            const res = await fetch('/backend/auth/logout', { credentials: 'include' });
+            const data = await res.json();
+            if (data.success) {
+                window.location.href = '/frontend/index.html';
+            }
+        } catch (e) {
+            window.location.href = '/frontend/index.html';
+        }
+    }
+</script>
+
+</body>
+</html>

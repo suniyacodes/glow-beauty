@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Glow Beauty</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+
+<div class="account-container">
+
+    <!-- Sidebar -->
+    <div class="profile">
+        <div class="avatar-wrap">
+            <img src="public/pd01.png" alt="Profile" id="profileImg">
+            <div class="avatar-badge"><i class="fa-solid fa-check"></i></div>
+        </div>
+        <h2 id="username">Loading...</h2>
+        <p id="useremail">Loading...</p>
+        <div class="profile-tag">Premium Member ✨</div>
+        <a href="dashboard.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Store
+        </a>
+    </div>
+
+    <!-- Details -->
+    <div class="details">
+        <div class="details-header">
+            <h3><i class="fa-solid fa-user-gear"></i> Account Details</h3>
+            <span class="edit-hint">Your profile information</span>
+        </div>
+
+        <div class="info-grid">
+            <div class="info">
+                <label><i class="fa-solid fa-user"></i> Full Name</label>
+                <input type="text" id="fullname" value="" readonly>
+            </div>
+
+            <div class="info">
+                <label><i class="fa-solid fa-envelope"></i> Email Address</label>
+                <input type="email" id="email-field" value="" readonly>
+            </div>
+
+            <div class="info">
+                <label><i class="fa-solid fa-phone"></i> Phone Number</label>
+                <input type="text" value="+91 9876543210" readonly>
+            </div>
+
+            <div class="info">
+                <label><i class="fa-solid fa-location-dot"></i> Address</label>
+                <textarea rows="2" readonly>Jamshedpur, Jharkhand</textarea>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn-edit"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+            <button class="btn-orders" onclick="window.location.href='order.html'">
+                <i class="fa-solid fa-box"></i> My Orders
+            </button>
+            <button class="btn-logout" id="logoutBtn" onclick="logout()">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #fff0f5, #ffd6e8, #fff5f8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 30px;
+    }
+
+    .account-container {
+        width: 900px;
+        max-width: 100%;
+        background: #fff;
+        display: flex;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(255,79,139,0.18);
+    }
+
+    /* ====== Sidebar ====== */
+    .profile {
+        width: 310px;
+        background: linear-gradient(160deg, #ff4f8b 0%, #ff8dc5 100%);
+        color: #fff;
+        text-align: center;
+        padding: 50px 30px 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .avatar-wrap {
+        position: relative;
+        margin-bottom: 8px;
+    }
+
+    .avatar-wrap img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 4px solid rgba(255,255,255,0.8);
+        object-fit: cover;
+        background: rgba(255,255,255,0.2);
+    }
+
+    .avatar-badge {
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+        width: 28px;
+        height: 28px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ff4f8b;
+        font-size: 13px;
+        font-weight: 700;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+
+    .profile h2 {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+    }
+
+    .profile p {
+        font-size: 13px;
+        opacity: 0.85;
+        margin-top: -6px;
+    }
+
+    .profile-tag {
+        background: rgba(255,255,255,0.2);
+        border: 1px solid rgba(255,255,255,0.4);
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .back-btn {
+        margin-top: auto;
+        color: rgba(255,255,255,0.85);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border: 1px solid rgba(255,255,255,0.4);
+        border-radius: 30px;
+        transition: .3s;
+    }
+
+    .back-btn:hover {
+        background: rgba(255,255,255,0.2);
+        color: #fff;
+    }
+
+    /* ====== Details ====== */
+    .details {
+        flex: 1;
+        padding: 45px 40px;
+    }
+
+    .details-header {
+        margin-bottom: 30px;
+        border-bottom: 2px solid #fff0f5;
+        padding-bottom: 18px;
+    }
+
+    .details-header h3 {
+        color: #ff4f8b;
+        font-size: 20px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 4px;
+    }
+
+    .edit-hint {
+        font-size: 13px;
+        color: #aaa;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .info:last-child {
+        grid-column: span 2;
+    }
+
+    .info label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #888;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .info label i { color: #ff4f8b; font-size: 13px; }
+
+    .info input,
+    .info textarea {
+        width: 100%;
+        padding: 13px 16px;
+        border: 2px solid #f0f0f0;
+        border-radius: 12px;
+        background: #fafafa;
+        font-size: 14px;
+        font-family: 'Poppins', sans-serif;
+        color: #333;
+        transition: .3s;
+        resize: none;
+    }
+
+    .info input:focus,
+    .info textarea:focus {
+        outline: none;
+        border-color: #ff4f8b;
+        background: #fff;
+    }
+
+    /* ====== Buttons ====== */
+    .buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .buttons button {
+        padding: 12px 22px;
+        border: none;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: .3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-edit {
+        background: #fff0f5;
+        color: #ff4f8b;
+        border: 2px solid #ffd6e8 !important;
+    }
+
+    .btn-edit:hover {
+        background: #ffd6e8;
+        transform: translateY(-2px);
+    }
+
+    .btn-orders {
+        background: #f0f7ff;
+        color: #4a90d9;
+        border: 2px solid #d6e8ff !important;
+    }
+
+    .btn-orders:hover {
+        background: #d6e8ff;
+        transform: translateY(-2px);
+    }
+
+    .btn-logout {
+        background: #fff0f0;
+        color: #e74c3c;
+        border: 2px solid #fdd !important;
+        margin-left: auto;
+    }
+
+    .btn-logout:hover {
+        background: #ffe0e0;
+        transform: translateY(-2px);
+    }
+
+    @media(max-width: 700px) {
+        .account-container { flex-direction: column; }
+        .profile { width: 100%; padding: 35px 20px; }
+        .details { padding: 30px 20px; }
+        .info-grid { grid-template-columns: 1fr; }
+        .info:last-child { grid-column: span 1; }
+        .back-btn { margin-top: 16px; }
+    }
+</style>
+
+<script>
+    // Fetch session data and populate fields
+    async function loadAccount() {
+        try {
+            const res = await fetch('/backend/account/account', { credentials: 'include' });
+            const data = await res.json();
+
+            if (data.success) {
+                document.getElementById('username').textContent   = data.user;
+                document.getElementById('useremail').textContent  = data.email || 'user@gmail.com';
+                document.getElementById('fullname').value         = data.user;
+                document.getElementById('email-field').value      = data.email || 'user@gmail.com';
+            } else {
+                window.location.href = '/frontend/login.html';
+            }
+        } catch (err) {
+            window.location.href = '/frontend/login.html';
+        }
+    }
+
+    async function logout() {
+        try {
+            const res = await fetch('/backend/auth/logout', { credentials: 'include' });
+            const data = await res.json();
+            if (data.success) {
+                window.location.href = '/frontend/index.html';
+            }
+        } catch (err) {
+            window.location.href = '/frontend/index.html';
+        }
+    }
+
+    loadAccount();
+</script>
+
+</body>
+</html>

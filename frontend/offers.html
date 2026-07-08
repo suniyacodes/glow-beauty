@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Offers - Glow Beauty</title>
+</head>
+<body>
+    <header>
+    <h1>Beauty Offers</h1>
+    <p>Glow More, Spend Less</p>
+</header>
+
+<section class="offer-banner">
+    <h2>Flat 50% OFF</h2>
+    <p>On Selected Cosmetic Products</p>
+</section>
+
+<section class="products">
+
+    <div class="card">
+        <img src="./public/pd07.png" alt="Lipstick">
+        <h3>Matte Lipstick</h3>
+        <p><del>₹699</del> <span>₹349</span></p>
+        <button>Shop Now</button>
+    </div>
+
+    <div class="card">
+        <img src="./public/pd04.png" alt="Serum">
+        <h3>Face Serum</h3>
+        <p><del>₹999</del> <span>₹499</span></p>
+        <button>Shop Now</button>
+    </div>
+
+    <div class="card">
+        <img src="./public/pd5.png" alt="Perfume">
+        <h3>Luxury Perfume</h3>
+        <p><del>₹1499</del> <span>₹799</span></p>
+        <button>Shop Now</button>
+    </div>
+
+    <div class="card">
+        <img src="./public/pd06.png" alt="Cream">
+        <h3>Moisturizer</h3>
+        <p><del>₹599</del> <span>₹299</span></p>
+        <button>Shop Now</button>
+    </div>
+
+</section>
+
+
+<style>
+    *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#fff8fa;
+}
+
+header{
+    text-align:center;
+    padding:30px;
+}
+
+header h1{
+    color:#ff4f81;
+    font-size:34px;
+}
+
+header p{
+    color:#777;
+    margin-top:8px;
+}
+
+.offer-banner{
+    width:90%;
+    max-width:900px;
+    margin:20px auto;
+    background:#ff4f81;
+    color:white;
+    text-align:center;
+    padding:30px;
+    border-radius:15px;
+}
+
+.offer-banner h2{
+    font-size:32px;
+}
+
+.products{
+    width:90%;
+    margin:40px auto;
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:180px;
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    text-align:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+}
+
+.card h3{
+    margin:12px 0;
+    font-size:17px;
+}
+
+.card del{
+    color:gray;
+}
+
+.card span{
+    color:#ff4f81;
+    font-weight:bold;
+    font-size:18px;
+}
+
+button{
+    margin-top:12px;
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#ff4f81;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#e13d6e;
+}
+</style>
+</body>
+</html>
