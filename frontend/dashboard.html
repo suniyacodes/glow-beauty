@@ -138,7 +138,7 @@
 
         <div class="product-card">
             <span class="discount">20% OFF</span>
-            <i class="fa-regular fa-heart wishlist"></i>
+            <i class="fa-regular fa-heart wishlist" data-product="Vitamin C Serum" data-price="499" title="Add to Wishlist"></i>
             <img src="public/pd06.png" alt="Vitamin C Serum">
             <h3>Vitamin C Serum</h3>
             <p class="brand">Glow Beauty</p>
@@ -152,7 +152,7 @@
 
         <div class="product-card">
             <span class="discount">30% OFF</span>
-            <i class="fa-regular fa-heart wishlist"></i>
+            <i class="fa-regular fa-heart wishlist" data-product="Face Wash" data-price="299" title="Add to Wishlist"></i>
             <img src="public/pd02.png" alt="Face Wash">
             <h3>Face Wash</h3>
             <p class="brand">Glow Beauty</p>
@@ -166,7 +166,7 @@
 
         <div class="product-card">
             <span class="discount">15% OFF</span>
-            <i class="fa-regular fa-heart wishlist"></i>
+            <i class="fa-regular fa-heart wishlist" data-product="Moisturizer" data-price="599" title="Add to Wishlist"></i>
             <img src="public/pd08.png" alt="Moisturizer">
             <h3>Moisturizer</h3>
             <p class="brand">Glow Beauty</p>
@@ -180,7 +180,7 @@
 
         <div class="product-card">
             <span class="discount">25% OFF</span>
-            <i class="fa-regular fa-heart wishlist"></i>
+            <i class="fa-regular fa-heart wishlist" data-product="Matte Lipstick" data-price="399" title="Add to Wishlist"></i>
             <img src="public/pd03.png" alt="Matte Lipstick">
             <h3>Matte Lipstick</h3>
             <p class="brand">Glow Beauty</p>
@@ -202,15 +202,45 @@
 
 </div><!-- .main -->
 
+<!-- Toast Notification -->
+<div id="toast" style="
+    position:fixed;bottom:28px;right:28px;
+    background:#1a1a2e;color:#fff;
+    padding:13px 20px;border-radius:12px;
+    font-size:14px;font-weight:500;
+    display:flex;align-items:center;gap:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+    transform:translateY(80px);opacity:0;
+    transition:.4s cubic-bezier(.175,.885,.32,1.275);
+    z-index:9999;font-family:'Poppins',sans-serif;
+">
+    <i id="toastIcon" class="fa-solid fa-circle-check" style="color:#ff4f8b;font-size:18px;"></i>
+    <span id="toastMsg">Done!</span>
+</div>
+
 <script src="script.js"></script>
 <script>
-    // ====== Session Guard — redirect to login if not logged in ======
+    // ====== Toast ======
+    function showToast(msg, icon) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toastMsg').textContent = msg;
+        if (icon) document.getElementById('toastIcon').className = `fa-solid ${icon}`;
+        toast.style.transform = 'translateY(0)';
+        toast.style.opacity = '1';
+        setTimeout(() => {
+            toast.style.transform = 'translateY(80px)';
+            toast.style.opacity = '0';
+        }, 2800);
+    }
+
+    // ====== Session Guard ======
     (async () => {
         try {
             const res = await fetch('/backend/account/account', { credentials: 'include' });
             const data = await res.json();
             if (data.success) {
                 document.getElementById('welcome-name').textContent = data.user;
+                initWishlistHearts();
             } else {
                 window.location.href = '/frontend/login.html';
             }
@@ -219,14 +249,83 @@
         }
     })();
 
+    // ====== Wishlist Hearts — API Toggle ======
+    // Tracks wishlistId per product so we can delete it
+    const wishlistMap = {}; // { productName: wishlistRowId }
+
+    async function initWishlistHearts() {
+        // Load current wishlist to mark already-wishlisted items
+        try {
+            const res = await fetch('/backend/wishlist/wishlist', { credentials: 'include' });
+            const data = await res.json();
+            if (data.success) {
+                data.wishlist.forEach(item => {
+                    wishlistMap[item.product] = item.id;
+                });
+                // Highlight already-wishlisted hearts
+                document.querySelectorAll('.wishlist').forEach(icon => {
+                    const product = icon.dataset.product;
+                    if (wishlistMap[product]) {
+                        icon.classList.replace('fa-regular', 'fa-solid');
+                        icon.style.color = '#ff4f8b';
+                    }
+                });
+            }
+        } catch (e) { /* silent */ }
+
+        // Attach click handlers
+        document.querySelectorAll('.wishlist').forEach(icon => {
+            icon.addEventListener('click', async function () {
+                const product = this.dataset.product;
+                const price   = this.dataset.price;
+                const isWishlisted = this.classList.contains('fa-solid');
+
+                if (isWishlisted) {
+                    // Remove from wishlist
+                    const id = wishlistMap[product];
+                    if (!id) return;
+                    const res = await fetch(`/backend/wishlist/wishlist?id=${id}`, {
+                        method: 'DELETE', credentials: 'include'
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        delete wishlistMap[product];
+                        this.classList.replace('fa-solid', 'fa-regular');
+                        this.style.color = '';
+                        showToast(`${product} removed from wishlist`, 'fa-heart-crack');
+                    }
+                } else {
+                    // Add to wishlist
+                    const res = await fetch('/backend/wishlist/wishlist', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ product_name: product, price: price }),
+                        credentials: 'include'
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        // Re-fetch to get DB id
+                        const wRes = await fetch('/backend/wishlist/wishlist', { credentials: 'include' });
+                        const wData = await wRes.json();
+                        if (wData.success) {
+                            const found = wData.wishlist.find(i => i.product === product);
+                            if (found) wishlistMap[product] = found.id;
+                        }
+                        this.classList.replace('fa-regular', 'fa-solid');
+                        this.style.color = '#ff4f8b';
+                        showToast(`${product} added to wishlist ❤️`, 'fa-heart');
+                    }
+                }
+            });
+        });
+    }
+
     // ====== Logout ======
     async function logout() {
         try {
             const res = await fetch('/backend/auth/logout', { credentials: 'include' });
             const data = await res.json();
-            if (data.success) {
-                window.location.href = '/frontend/index.html';
-            }
+            if (data.success) window.location.href = '/frontend/index.html';
         } catch (e) {
             window.location.href = '/frontend/index.html';
         }
